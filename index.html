@@ -56,7 +56,6 @@
     .video-wrap{position:relative;padding-top:56.25%;background:#000;border-radius:8px;overflow:hidden}
     .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    /* Floating "Meniu K" */
     .menu-k{position:fixed;right:22px;bottom:22px;background:var(--card-bg);border-radius:12px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,0.6);cursor:pointer;display:flex;flex-direction:column;gap:8px;z-index:1400}
     .menu-k button{background:transparent;border:0;color:var(--accent);font-weight:700;cursor:pointer;padding:8px;border-radius:8px}
     .menu-k .sub{display:none;background:#081018;padding:10px;border-radius:8px;color:#cbd6e0;min-width:180px}
@@ -88,6 +87,7 @@
       <button data-filter="Felony">Felony Stop</button>
       <button data-filter="Trafic">Trafic Stop</button>
       <button data-filter="MeniuK">Meniu K</button>
+      <button data-filter="DosarPenal">Dosar Penal</button>
       <button data-filter="all">Toate</button>
     </div>
   </div>
@@ -98,7 +98,6 @@
       <div class="card" data-category="Felony" data-video="bpDFyaiRJRs" data-title="FELONY-STOP - Tutorial" data-thumb="url('https://img.youtube.com/vi/bpDFyaiRJRs/maxresdefault.jpg')">
         <div class="card-content"><h2>FELONY-STOP</h2><p class="tag">Felony</p></div>
       </div>
-
 
       <div class="card" data-category="Trafic" data-video="3peg9Q8Z54A" data-title="TRAFIC STOP 10-16 - Tutorial" data-thumb="url('https://img.youtube.com/vi/3peg9Q8Z54A/maxresdefault.jpg')">
         <div class="card-content"><h2>TRAFIC STOP 10-16</h2><p class="tag">Trafic</p></div>
@@ -112,23 +111,26 @@
         <div class="card-content"><h2>TRAFIC STOP 10-28</h2><p class="tag">Trafic</p></div>
       </div>
 
-     </div></div>
+      <div class="card" data-category="DosarPenal" data-video="pHXeTHDszFY" data-title="Efectuarea unui dosar penal/amenda" data-thumb="url('https://img.youtube.com/vi/pHXeTHDszFY/maxresdefault.jpg')">
+        <div class="card-content">
+          <h2>Efectuarea unui dosar penal/amenda</h2>
+          <p class="tag">Dosar Penal / Amendă</p>
+        </div>
+      </div>
+
+     </div>
     </div>
   </div>
 
-  
   <div id="videoModal" class="modal" role="dialog" aria-hidden="true">
     <div class="modal-content" role="document">
       <button class="close" aria-label="Închide">&times;</button>
       <h2 id="modalTitle">Titlu</h2>
-      <div class="video-wrap" id="videoWrap">
-        
-      </div>
+      <div class="video-wrap" id="videoWrap"></div>
       <p style="margin-top:12px;font-size:13px;color:#555">Apasă Esc sau butonul de închidere pentru a reveni.</p>
     </div>
   </div>
 
- 
   <div class="menu-k" id="menuK" aria-hidden="false" title="Meniu K">
     <button id="menuToggle">K</button>
     <div class="sub" id="menuSub">
@@ -183,7 +185,6 @@
     window.addEventListener('click', (e)=>{ if(e.target.classList.contains('modal')) closeVideoModal(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeVideoModal(); });
 
-    
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function(){
       const q = this.value.trim().toLowerCase();
@@ -212,8 +213,14 @@
       menuK.classList.toggle('open');
     });
 
-    document.querySelectorAll('.card').forEach(card=>{ card.setAttribute('tabindex','0');
-      card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
+    document.querySelectorAll('.card').forEach(card=>{ 
+      card.setAttribute('tabindex','0');
+      card.addEventListener('keydown', (e)=>{ 
+        if(e.key === 'Enter' || e.key === ' ') { 
+          e.preventDefault(); 
+          card.click(); 
+        } 
+      }); 
     });
   </script>
 </body>
