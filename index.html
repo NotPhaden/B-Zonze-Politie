@@ -88,13 +88,15 @@
       <button data-filter="Trafic">Trafic Stop</button>
       <button data-filter="MeniuK">Meniu K</button>
       <button data-filter="DosarPenal">Dosar Penal</button>
+      <button data-filter="Procesare">Procesare</button>
+      <button data-filter="MDT">MDT</button>
       <button data-filter="all">Toate</button>
     </div>
   </div>
 
   <div class="container">
     <div class="grid" id="cardGrid">
-     
+
       <div class="card" data-category="Felony" data-video="bpDFyaiRJRs" data-title="FELONY-STOP - Tutorial" data-thumb="url('https://img.youtube.com/vi/bpDFyaiRJRs/maxresdefault.jpg')">
         <div class="card-content"><h2>FELONY-STOP</h2><p class="tag">Felony</p></div>
       </div>
@@ -102,13 +104,12 @@
       <div class="card" data-category="Trafic" data-video="3peg9Q8Z54A" data-title="TRAFIC STOP 10-16 - Tutorial" data-thumb="url('https://img.youtube.com/vi/3peg9Q8Z54A/maxresdefault.jpg')">
         <div class="card-content"><h2>TRAFIC STOP 10-16</h2><p class="tag">Trafic</p></div>
       </div>
+      <div class="card" data-category="Trafic" data-video="pvIsQJij-Ak" data-title="TRAFIC STOP 10-28" data-thumb="url('https://img.youtube.com/vi/pvIsQJij-Ak/maxresdefault.jpg')">
+        <div class="card-content"><h2>TRAFIC STOP 10-28</h2><p class="tag">Trafic</p></div>
+      </div>
 
       <div class="card" data-category="MeniuK" data-video="jurbHmySJ4E" data-title="MENIU K - Ghid" data-thumb="url('https://img.youtube.com/vi/jurbHmySJ4E/maxresdefault.jpg')">
         <div class="card-content"><h2>MENIU K</h2><p class="tag">Meniu</p></div>
-      </div>
-
-      <div class="card" data-category="Trafic" data-video="pvIsQJij-Ak" data-title="TRAFIC STOP 10-28" data-thumb="url('https://img.youtube.com/vi/pvIsQJij-Ak/maxresdefault.jpg')">
-        <div class="card-content"><h2>TRAFIC STOP 10-28</h2><p class="tag">Trafic</p></div>
       </div>
 
       <div class="card" data-category="DosarPenal" data-video="pHXeTHDszFY" data-title="Efectuarea unui dosar penal/amenda" data-thumb="url('https://img.youtube.com/vi/pHXeTHDszFY/maxresdefault.jpg')">
@@ -118,7 +119,20 @@
         </div>
       </div>
 
-     </div>
+      <div class="card" data-category="Procesare" data-video="Nf9TF8YGmUc" data-title="Procesare — Tutorial" data-thumb="url('https://img.youtube.com/vi/Nf9TF8YGmUc/maxresdefault.jpg')">
+        <div class="card-content">
+          <h2>Procesare</h2>
+          <p class="tag">Procesare</p>
+        </div>
+      </div>
+
+      <div class="card" data-category="MDT" data-video="uP9ZJbjHvk4" data-title="Prezentare MDT" data-thumb="url('https://img.youtube.com/vi/uP9ZJbjHvk4/maxresdefault.jpg')">
+        <div class="card-content">
+          <h2>Prezentare MDT</h2>
+          <p class="tag">MDT</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -146,11 +160,7 @@
   <script>
     document.querySelectorAll('.card').forEach(card => {
       const thumb = card.getAttribute('data-thumb');
-      if(thumb){
-        card.style.setProperty('--thumb', thumb);
-      } else {
-        card.style.setProperty('--thumb', "url('https://via.placeholder.com/800x450/0b1622/4cc2ff?text=B-ZONE')");
-      }
+      card.style.setProperty('--thumb', thumb || "url('https://via.placeholder.com/800x450/0b1622/4cc2ff?text=B-ZONE')");
     });
 
     function openVideoModal(videoId, title){
@@ -163,7 +173,6 @@
       modal.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
     }
-
     function closeVideoModal(){
       const modal = document.getElementById('videoModal');
       const wrap = document.getElementById('videoWrap');
@@ -179,6 +188,10 @@
         const title = card.getAttribute('data-title') || card.querySelector('h2').innerText;
         if(vid) openVideoModal(vid, title);
       });
+      card.setAttribute('tabindex','0');
+      card.addEventListener('keydown', (e)=>{
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.click(); }
+      });
     });
 
     document.querySelectorAll('.modal .close').forEach(btn => btn.addEventListener('click', closeVideoModal));
@@ -191,8 +204,7 @@
       document.querySelectorAll('.card').forEach(card=>{
         const title = card.getAttribute('data-title').toLowerCase();
         const cat = (card.getAttribute('data-category')||'').toLowerCase();
-        const show = title.includes(q) || cat.includes(q);
-        card.style.display = show ? 'flex' : 'none';
+        card.style.display = (title.includes(q) || cat.includes(q)) ? 'flex' : 'none';
       });
     });
 
@@ -200,8 +212,7 @@
       btn.addEventListener('click', ()=>{
         const f = btn.getAttribute('data-filter');
         document.querySelectorAll('.card').forEach(card => {
-          card.style.display = 'flex';
-          if(f !== 'all' && card.getAttribute('data-category') !== f) card.style.display = 'none';
+          card.style.display = (f==='all'||card.getAttribute('data-category')===f)?'flex':'none';
         });
         searchInput.value = '';
       });
@@ -209,19 +220,6 @@
 
     const menuK = document.getElementById('menuK');
     const menuToggle = document.getElementById('menuToggle');
-    menuToggle.addEventListener('click', ()=>{
-      menuK.classList.toggle('open');
-    });
-
-    document.querySelectorAll('.card').forEach(card=>{ 
-      card.setAttribute('tabindex','0');
-      card.addEventListener('keydown', (e)=>{ 
-        if(e.key === 'Enter' || e.key === ' ') { 
-          e.preventDefault(); 
-          card.click(); 
-        } 
-      }); 
-    });
+    menuToggle.addEventListener('click', ()=>{ menuK.classList.toggle('open'); });
   </script>
 </body>
-</html>
