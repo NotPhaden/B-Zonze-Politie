@@ -56,11 +56,6 @@
     .video-wrap{position:relative;padding-top:56.25%;background:#000;border-radius:8px;overflow:hidden}
     .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    .menu-k{position:fixed;right:22px;bottom:22px;background:var(--card-bg);border-radius:12px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,0.6);cursor:pointer;display:flex;flex-direction:column;gap:8px;z-index:1400}
-    .menu-k button{background:transparent;border:0;color:var(--accent);font-weight:700;cursor:pointer;padding:8px;border-radius:8px}
-    .menu-k .sub{display:none;background:#081018;padding:10px;border-radius:8px;color:#cbd6e0;min-width:180px}
-    .menu-k.open .sub{display:block}
-
     .tag{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.04);font-size:12px;color:#cfeeff;margin-right:8px}
 
     @media (max-width:720px){
@@ -68,7 +63,6 @@
       .header-text h1{font-size:22px}
       .card{height:160px}
       .modal-content{padding:12px}
-      .menu-k{right:12px;bottom:12px}
     }
   </style>
 </head>
@@ -86,10 +80,10 @@
     <div class="group">
       <button data-filter="Felony">Felony Stop</button>
       <button data-filter="Trafic">Trafic Stop</button>
-      <button data-filter="MeniuK">Meniu K</button>
       <button data-filter="DosarPenal">Dosar Penal</button>
       <button data-filter="Procesare">Procesare</button>
       <button data-filter="MDT">MDT</button>
+      <button data-filter="GhidRadio">Ghid Radio</button>
       <button data-filter="all">Toate</button>
     </div>
   </div>
@@ -107,10 +101,6 @@
 
       <div class="card" data-category="Trafic" data-video="pvIsQJij-Ak" data-title="TRAFIC STOP 10-28" data-thumb="url('https://img.youtube.com/vi/pvIsQJij-Ak/maxresdefault.jpg')">
         <div class="card-content"><h2>TRAFIC STOP 10-28</h2><p class="tag">Trafic</p></div>
-      </div>
-
-      <div class="card" data-category="MeniuK" data-video="jurbHmySJ4E" data-title="MENIU K - Ghid" data-thumb="url('https://img.youtube.com/vi/jurbHmySJ4E/maxresdefault.jpg')">
-        <div class="card-content"><h2>MENIU K</h2><p class="tag">Meniu</p></div>
       </div>
 
       <div class="card" data-category="DosarPenal" data-video="pHXeTHDszFY" data-title="Efectuarea unui dosar penal/amenda" data-thumb="url('https://img.youtube.com/vi/pHXeTHDszFY/maxresdefault.jpg')">
@@ -134,6 +124,13 @@
         </div>
       </div>
 
+      <div class="card" data-category="GhidRadio" data-video="SbCaI4apiqM" data-title="Ghid Radio" data-thumb="url('https://img.youtube.com/vi/SbCaI4apiqM/maxresdefault.jpg')">
+        <div class="card-content">
+          <h2>Ghid Radio</h2>
+          <p class="tag">Radio</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -143,18 +140,6 @@
       <h2 id="modalTitle">Titlu</h2>
       <div class="video-wrap" id="videoWrap"></div>
       <p style="margin-top:12px;font-size:13px;color:#555">Apasă Esc sau butonul de închidere pentru a reveni.</p>
-    </div>
-  </div>
-
-  <div class="menu-k" id="menuK" aria-hidden="false" title="Meniu K">
-    <button id="menuToggle">K</button>
-    <div class="sub" id="menuSub">
-      <strong style="color:#fff">Meniu K — Scurtături</strong>
-      <ul style="padding-left:16px;margin:8px 0 0">
-        <li><a href="#" style="color:inherit;text-decoration:none">Proceduri Stop Rutier</a></li>
-        <li><a href="#" style="color:inherit;text-decoration:none">Tactici Felony Stop</a></li>
-        <li><a href="#" style="color:inherit;text-decoration:none">Formulare & Modele</a></li>
-      </ul>
     </div>
   </div>
 
@@ -210,17 +195,4 @@
     });
 
     document.querySelectorAll('.controls [data-filter]').forEach(btn => {
-      btn.addEventListener('click', ()=>{
-        const f = btn.getAttribute('data-filter');
-        document.querySelectorAll('.card').forEach(card => {
-          card.style.display = (f==='all'||card.getAttribute('data-category')===f)?'flex':'none';
-        });
-        searchInput.value = '';
-      });
-    });
-
-    const menuK = document.getElementById('menuK');
-    const menuToggle = document.getElementById('menuToggle');
-    menuToggle.addEventListener('click', ()=>{ menuK.classList.toggle('open'); });
-  </script>
-</body>
+      btn.addEventListener('
